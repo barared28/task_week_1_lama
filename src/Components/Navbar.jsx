@@ -1,4 +1,8 @@
 import { Navbar, Container, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { modalLoginShow , modalRegisterShow } from '../actions/modalNavbarActions';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 import logo from "../Images/Icon.png";
 import cart from "../Images/cart.png";
 import user from "../Images/user.png";
@@ -22,13 +26,22 @@ const NavbarComponent = ({ login = false }) => {
 };
 
 const NotLogin = () => {
+  const dispatch = useDispatch();
+  const onLogin = () => {
+    dispatch(modalLoginShow())
+  }
+  const onRegister = () => {
+    dispatch(modalRegisterShow())
+  }
   return (
     <div className="ml-sm-auto my-2 d-flex flex-column justify-content-center flex-sm-row  ">
+      <LoginModal  />
+      <RegisterModal />
       <div className="ml-3 my-1 d-flex justify-content-center">
-        <Button variant="outline-primary">Login</Button>
+        <Button variant="outline-primary" onClick={onLogin}>Login</Button>
       </div>
       <div className="ml-3 my-1 d-flex justify-content-center">
-        <Button>Register</Button>
+        <Button onClick={onRegister}>Register</Button>
       </div>
     </div>
   );
