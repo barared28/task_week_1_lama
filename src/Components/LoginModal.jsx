@@ -1,20 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { modalLoginClose } from "../actions/modalNavbarActions";
 import { Modal, Button } from "react-bootstrap";
 import "./styles/modal.scss";
 
-function LoginModal() {
-  const dispatch = useDispatch();
-  const modalLogin = useSelector((state) => state.modalLogin);
-  const { showLogin } = modalLogin;
-
+function LoginModal({ show, cb }) {
   const handleClose = () => {
-    dispatch(modalLoginClose());
+    cb(false);
   };
-
   return (
     <>
-      <Modal show={showLogin} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <div className="c-modal-container">
           <div>
             <h2 className="c-modal-title">Login</h2>

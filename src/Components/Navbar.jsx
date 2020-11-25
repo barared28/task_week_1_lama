@@ -1,9 +1,5 @@
+import { useState } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import {
-  modalLoginShow,
-  modalRegisterShow,
-} from "../actions/modalNavbarActions";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import logo from "../Images/Icon.png";
@@ -27,20 +23,22 @@ function NavbarComponent({ login = false }) {
       </Navbar>
     </div>
   );
-};
+}
 
-function NotLogin(){
-  const dispatch = useDispatch();
+function NotLogin() {
+  const [modalLogin, showModalLogin] = useState(false);
+  const [modalRegister, showModalRegister] = useState(false);
+
   const onLogin = () => {
-    dispatch(modalLoginShow());
+    showModalLogin(true);
   };
   const onRegister = () => {
-    dispatch(modalRegisterShow());
+    showModalRegister(true);
   };
   return (
     <div className="ml-sm-auto my-2 d-flex flex-column justify-content-center flex-sm-row  ">
-      <LoginModal />
-      <RegisterModal />
+      <LoginModal show={modalLogin} cb={showModalLogin} />
+      <RegisterModal show={modalRegister} cb={showModalRegister} />
       <div className="ml-3 my-1 d-flex justify-content-center">
         <Button variant="outline-primary" onClick={onLogin}>
           Login
@@ -51,9 +49,9 @@ function NotLogin(){
       </div>
     </div>
   );
-};
+}
 
-function Login(){
+function Login() {
   return (
     <div className="ml-sm-auto d-flex justify-content-center flex-sm-row  ">
       <div className="ml-3 my-1 my-sm-0  align-self-center">
@@ -63,11 +61,15 @@ function Login(){
       </div>
       <div className="ml-4 my-1 my-sm-0 ">
         <a href="/">
-          <img className="rounded-circle c-navbar-profile" src={user} alt="user"/>
+          <img
+            className="rounded-circle c-navbar-profile"
+            src={user}
+            alt="user"
+          />
         </a>
       </div>
     </div>
   );
-};
+}
 
 export default NavbarComponent;

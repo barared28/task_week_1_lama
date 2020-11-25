@@ -1,20 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { modalRegisterClose } from "../actions/modalNavbarActions";
 import { Modal, Button } from "react-bootstrap";
 import "./styles/modal.scss";
 
-const RegisterModal = () => {
-  const dispatch = useDispatch();
-  const modalRegister = useSelector((state) => state.modalRegister);
-  const { showRegister } = modalRegister;
-
+const RegisterModal = ({ show, cb }) => {
   const handleClose = () => {
-    dispatch(modalRegisterClose());
+    cb(false);
   };
 
   return (
     <>
-      <Modal show={showRegister} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <div className="c-modal-container">
           <div>
             <h2 className="c-modal-title">Register</h2>
