@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Navbar, Container, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Navbar, Container, Button, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
@@ -8,7 +8,10 @@ import cart from "../Images/cart.png";
 import user from "../Images/user.png";
 import "./styles/navbar.scss";
 
-function NavbarComponent({ login = false }) {
+function NavbarComponent() {
+  const [login, setLogin] = useState(
+    JSON.parse(window.localStorage.getItem("isLogin")) || false
+  );
   return (
     <div className="c-navbar-shadow">
       <Navbar bg="light" expand="sm">
@@ -20,7 +23,11 @@ function NavbarComponent({ login = false }) {
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            {login ? <Login /> : <NotLogin />}
+            {login ? (
+              <Login setLogin={setLogin} />
+            ) : (
+              <NotLogin setLogin={setLogin} />
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -28,7 +35,7 @@ function NavbarComponent({ login = false }) {
   );
 }
 
-function NotLogin() {
+function NotLogin({ setLogin }) {
   const [modalLogin, showModalLogin] = useState(false);
   const [modalRegister, showModalRegister] = useState(false);
 
@@ -40,8 +47,12 @@ function NotLogin() {
   };
   return (
     <div className="ml-sm-auto my-2 d-flex flex-column justify-content-center flex-sm-row  ">
-      <LoginModal show={modalLogin} cb={showModalLogin} />
-      <RegisterModal show={modalRegister} cb={showModalRegister} />
+      <LoginModal show={modalLogin} cb={showModalLogin} setLogin={setLogin} />
+      <RegisterModal
+        show={modalRegister}
+        cb={showModalRegister}
+        setLogin={setLogin}
+      />
       <div className="ml-3 my-1 d-flex justify-content-center">
         <Button variant="outline-primary" onClick={onLogin}>
           Login
@@ -55,21 +66,60 @@ function NotLogin() {
 }
 
 function Login() {
+  const [numProduct, setNumProduct] = useState(
+    window.localStorage.getItem("ProductsCart").length || 0
+  );
+  useEffect(() => {
+    (async function () {
+      try {
+        const productCart = await JSON.parse(
+          window.localStorage.getItem("ProductsCart")
+        );
+        setNumProduct(productCart.length);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [numProduct]);
+  const onLogout = () => {
+    window.localStorage.setItem('isLogin', false);
+  }
   return (
     <div className="ml-sm-auto d-flex justify-content-center flex-sm-row  ">
       <div className="ml-3 my-1 my-sm-0  align-self-center">
-        <a href="/">
-          <img src={cart} alt="cart" />
-        </a>
+        <Link to="/cart">
+          <div>
+            {numProduct > 0 && (
+              <div className="c-navbar-cart-number ml-4">
+                <p className="rounded-circle px-1">{numProduct}</p>
+              </div>
+            )}
+            <img src={cart} alt="cart" />
+          </div>
+        </Link>
       </div>
       <div className="ml-4 my-1 my-sm-0 ">
-        <a href="/">
+        <NavDropdown
+          title={
+            <img
+              className="rounded-circle c-navbar-profile"
+              src={user}
+              alt="user"
+            />
+          }
+        >
+          <NavDropdown.Item>Separated link</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/" onClick={onLogout}>Logout</NavDropdown.Item>
+        </NavDropdown>
+
+        {/* <a href="/">
           <img
             className="rounded-circle c-navbar-profile"
             src={user}
             alt="user"
           />
-        </a>
+        </a> */}
       </div>
     </div>
   );

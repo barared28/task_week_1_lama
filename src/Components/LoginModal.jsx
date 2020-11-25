@@ -1,10 +1,14 @@
 import { Modal, Button } from "react-bootstrap";
 import "./styles/modal.scss";
 
-function LoginModal({ show, cb }) {
+function LoginModal({ show, cb, setLogin }) {
   const handleClose = () => {
     cb(false);
   };
+  const onLogin = () => {
+    setLogin(true);
+    window.localStorage.setItem('isLogin', true);
+  }
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -25,7 +29,7 @@ function LoginModal({ show, cb }) {
             ></input>
           </div>
           <div>
-            <Button className="c-modal-button" variant="primary">
+            <Button className="c-modal-button" variant="primary" onClick={onLogin}>
               <span className="c-modal-button-text">Login</span>
             </Button>
             <h5 className="text-center c-modal-text">

@@ -5,7 +5,7 @@ import ProductPage from "./Page/ProductPage";
 import CartPage from "./Page/CartPage";
 import Navbar from "./Components/Navbar";
 
-function App() {
+export function App() {
   return (
     <Router>
       <Navbar />
@@ -23,5 +23,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import trash from "../Images/trash.png";
 import "./styles/cartList.scss";
@@ -7,13 +7,23 @@ const initialData = {
   name: "RWANDA Beans",
   price: "299.900",
   photo: "/image/product1.png",
-  qty: 2,
+  qty: 1,
 };
 
 function CartList() {
-  const [products] = useState([initialData]);
+  const [products, setProduct] = useState([initialData]);
+  useEffect(() => {
+    (async function () {
+      try {
+        const productCart = await JSON.parse(window.localStorage.getItem('ProductsCart'));
+        setProduct(productCart);
+      } catch (error) {
+        window.localStorage.setItem("ProductsCart", JSON.stringify(products))
+      }
+    })()
+  },[products])
   return (
-    <Container>
+    <Container className='mb-5'>
       <h2 className="pl-0 pl-md-5 c-cart-list-title">My Cart</h2>
       <Row className="mt-4">
         <Col sm={12} md={8} lg={8} xl={8}>
