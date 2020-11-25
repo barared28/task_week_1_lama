@@ -1,30 +1,20 @@
-import { useState, useEffect } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import products from '../data/products.json';
 import "./styles/listProducts.scss";
 
 function ListProducts() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    axios
-      .get("/data/products.json")
-      .then(({ data }) => setProducts(data))
-      .catch((error) => console.log(error));
-  }, []);
-
   return (
-    <Container>
       <Row className="d-flex justify-content-center">
         {products ? <MappingProduct data={products} /> : null}
       </Row>
-    </Container>
   );
-};
+}
 
-function MappingProduct({ data }){
-  return data.map((product) => {
+function MappingProduct({ data }) {
+  return data.map((product , index) => {
     return (
-      <a href="/" key={product.name} className="text-decoration-none">
+      <Link to={`/product/${index}`} key={index} className="text-decoration-none">
         <Col sm={12} md={6} lg={4} xl={3} key={product._id} className="mb-3">
           <Card className="c-list-card">
             <Card.Img
@@ -45,9 +35,9 @@ function MappingProduct({ data }){
             </Card.Body>
           </Card>
         </Col>
-      </a>
+      </Link>
     );
   });
-};
+}
 
 export default ListProducts;

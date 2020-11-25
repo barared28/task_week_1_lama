@@ -5,7 +5,6 @@ import "./styles/jumbotron.scss";
 function JumbotronComponent(){
   return (
     <>
-      <div className="container">
         <div className="row">
           <div className="col-md-6 c-jumbotron-container">
             <div className="text-center text-md-left c-jumbotron-con-1">
@@ -23,7 +22,6 @@ function JumbotronComponent(){
             <img src={image1} alt="waysbeans" className="w-100 mt-1 mb-4 c-jumbotron-img-2"/>
           </div>
         </div>
-      </div>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import logo from "../Images/Icon.png";
@@ -12,9 +13,11 @@ function NavbarComponent({ login = false }) {
     <div className="c-navbar-shadow">
       <Navbar bg="light" expand="sm">
         <Container>
-          <Navbar.Brand href="/">
-            <img src={logo} alt="logo" />
-          </Navbar.Brand>
+          <Link to="/">
+            <Navbar.Brand>
+              <img src={logo} alt="logo" />
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             {login ? <Login /> : <NotLogin />}
