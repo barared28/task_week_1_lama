@@ -1,64 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
-import { modalRegisterClose } from '../actions/modalNavbarActions';
-import {Modal , Button} from 'react-bootstrap';
+import { modalRegisterClose } from "../actions/modalNavbarActions";
+import { Modal, Button } from "react-bootstrap";
+import "./styles/modal.scss";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
-  const modalRegister = useSelector((state) =>  state.modalRegister);
-  const { showRegister } = modalRegister ;
+  const modalRegister = useSelector((state) => state.modalRegister);
+  const { showRegister } = modalRegister;
 
   const handleClose = () => {
-    dispatch(modalRegisterClose())
-  }
+    dispatch(modalRegisterClose());
+  };
 
   return (
     <>
-      <Modal show={ showRegister } onHide={handleClose}>
-      <div style={{ padding: "41px 33px" }}>
+      <Modal show={showRegister} onHide={handleClose}>
+        <div className="c-modal-container">
           <div>
-            <h2 style={customTitle}>Register</h2>
+            <h2 className="c-modal-title">Register</h2>
           </div>
-          <div style={{ marginTop: "29px" }}>
+          <div className="mt-4">
             <input
-              className="form-control-lg"
-              style={customBox}
+              className="form-control-lg c-modal-box"
               type="text"
               placeholder="Email"
             ></input>
             <input
-              className="form-control-lg"
-              style={customBox}
+              className="form-control-lg c-modal-box"
               type="text"
               placeholder="Password"
             ></input>
             <input
-              className="form-control-lg"
-              style={customBox}
+              className="form-control-lg c-modal-box"
               type="text"
               placeholder="Full Name"
             ></input>
           </div>
           <div>
-            <Button variant="primary" style={{ width: "100%" }}>
-              <span
-                style={{
-                  fontWeight: "900",
-                  fontSize: "18px",
-                  lineHeight: "25px",
-                }}
-              >
-                Register
-              </span>
+            <Button variant="primary" className="c-modal-button">
+              <span className="c-modal-button-text">Register</span>
             </Button>
-            <h5
-              className="text-center"
-              style={{
-                marginTop: "20px",
-                fontSize: "18px",
-                lineHeight: "25px",
-                color: "black",
-              }}
-            >
+            <h5 className="text-center c-modal-text">
               Already have an account ? <a href="/">Klik Here</a>
             </h5>
           </div>
@@ -67,21 +49,5 @@ const RegisterModal = () => {
     </>
   );
 };
-
-const customBox = {
-    minWidth: "100%",
-    marginBottom: "20px",
-    background: "rgba(97, 61, 43, 0.25)",
-    border: "2px solid #613D2B",
-    boxSizing: "border-box",
-    borderRadius: "5px",
-  };
-  
-  const customTitle = {
-    fontWeight: "900",
-    fontSize: "36px",
-    lineHeight: "49px",
-    color: "#613D2B",
-  };
 
 export default RegisterModal;

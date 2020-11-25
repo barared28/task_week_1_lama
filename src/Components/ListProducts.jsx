@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import axios from "axios";
+import "./styles/listProducts.scss";
 
-const ListProducts = () => {
+function ListProducts() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
@@ -20,41 +21,33 @@ const ListProducts = () => {
   );
 };
 
-const MappingProduct = ({ data }) => {
+function MappingProduct({ data }){
   return data.map((product) => {
     return (
-      <a href="/" key={product.name} style={{ textDecoration: "none" }}>
+      <a href="/" key={product.name} className="text-decoration-none">
         <Col sm={12} md={6} lg={4} xl={3} key={product._id} className="mb-3">
-          <Card style={{ width: "18rem", maxWidth: "241px" }}>
+          <Card className="c-list-card">
             <Card.Img
+              className="c-list-card-img"
               variant="top"
-              style={{ maxWidth: "241px", maxHeight: "312px" }}
               src={product.photo}
             />
             <Card.Body>
-              <Card.Title
-                style={{
-                  fontWeight: "900",
-                  fontSize: "18px",
-                  lineHeight: "25px",
-                }}
-              >
+              <Card.Title className="c-list-card-title">
                 {product.name}
               </Card.Title>
-              <Card.Text style={customText}>Rp.{product.price}</Card.Text>
-              <Card.Text style={customText}>Stock : {product.stock}</Card.Text>
+              <Card.Text className="c-list-card-desc">
+                Rp.{product.price}
+              </Card.Text>
+              <Card.Text className="c-list-card-desc">
+                Stock : {product.stock}
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>
       </a>
     );
   });
-};
-
-const customText = {
-  fontSize: "14px",
-  lineHeight: "19px",
-  color: "#974A4A",
 };
 
 export default ListProducts;

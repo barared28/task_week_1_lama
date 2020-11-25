@@ -1,0 +1,31 @@
+.c-modal-container {
+  padding: 41px 33px;
+}
+.c-modal-title {
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 49px;
+  color: #613d2b;
+}
+.c-modal-box {
+  min-width: 100%;
+  margin-bottom: 20px;
+  background: rgba(97, 61, 43, 0.25);
+  border: 2px solid #613d2b;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.c-modal-button {
+  width: 100%;
+}
+.c-modal-button-text {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 25px;
+}
+.c-modal-text {
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 25px;
+  color: black;
+}
