@@ -1,14 +1,15 @@
 import { Modal, Button } from "react-bootstrap";
-import "./styles/modal.scss";
+import "../styles/modal.scss";
 
-const RegisterModal = ({ show, cb, setLogin}) => {
+const RegisterModal = ({ show, cb, dispatch}) => {
   const handleClose = () => {
     cb(false);
   };
 
   const onRegister = () => {
-    setLogin(true);
-    window.localStorage.setItem('isLogin', true);
+    dispatch({
+      type : "LOGIN"
+    });
   }
   return (
     <>

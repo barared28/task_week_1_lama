@@ -1,25 +1,27 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import LandingPage from "./Page/LandingPage";
 import ProductPage from "./Page/ProductPage";
 import CartPage from "./Page/CartPage";
-import Navbar from "./Components/Navbar";
+import Shipping from "./Page/Shipping";
+import Navbar from "./Components/Navbar/Navbar";
+import PrivateRoute from './Components/PrivateRoot'
+import { GlobalContextProvider } from "./Context/GlobalContext";
 
 export function App() {
   return (
-    <Router>
-      <Navbar />
-      <Container>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route path="/product/:id">
-          <ProductPage />
-        </Route>
-        <Route path="/cart">
-          <CartPage />
-        </Route>
-      </Container>
-    </Router>
+    <GlobalContextProvider>
+      <Router>
+        <Navbar />
+        <Container>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/product/:id" component={ProductPage} />
+            <PrivateRoute exact path="/cart" component={CartPage} />
+            <PrivateRoute exact path="/cart/shipping" component={Shipping} />
+          </Switch>
+        </Container>
+      </Router>
+    </GlobalContextProvider>
   );
 }
