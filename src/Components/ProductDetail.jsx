@@ -1,20 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import { GlobalContext } from "../Context/GlobalContext";
+import Toast from "./Toast";
 import products from "../data/products.json";
 import "./styles/productDetail.scss";
 
 function ProductDetail({ index }) {
   const [state, dispatch] = useContext(GlobalContext);
+  const [showToast, setToast] = useState(false);
   const onAddCart = (id) => {
     if (state.isLogin) {
-      const filterProductById = products.find((product) => product.id === id)
+      const filterProductById = products.find((product) => product.id === id);
       dispatch({
         type: "ADD_TO_CART",
         payload: filterProductById,
       });
+      setToast(true);
     } else {
       console.log("not login");
+      setToast(true);
     }
   };
   return (
@@ -40,9 +44,28 @@ function ProductDetail({ index }) {
           <h5 className="mt-3 mb-3 text-right c-product-detail-price">
             Rp.{products[index].price}
           </h5>
-          <Button className="w-100 mt-5" onClick={() => onAddCart(products[index].id)}>
+          <Button
+            className="w-100 mt-5"
+            onClick={() => onAddCart(products[index].id)}
+          >
             Add Cart
           </Button>
+          {state.isLogin ? (
+            <Toast
+              text="Success Add Product"
+              variant="success"
+              show={showToast}
+              setShow={setToast}
+              delay={500}
+            />
+          ) : (
+            <Toast
+              text="Please Login First"
+              variant="danger"
+              show={showToast}
+              setShow={setToast}
+            />
+          )}
         </Col>
       </Row>
     </Container>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
+import Toast from "../Toast";
 import "../styles/modal.scss";
 
 const initialUser = {
@@ -7,9 +8,10 @@ const initialUser = {
   pass: "123",
 };
 
-function LoginModal({ show, cb, dispatch }) {
+function LoginModal({ show, cb, dispatch}) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [showToast, setToast] = useState(false);
   const handleClose = () => {
     cb(false);
   };
@@ -19,43 +21,50 @@ function LoginModal({ show, cb, dispatch }) {
         type: "LOGIN",
       });
     }
+    setToast(true);
   };
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <div className="c-modal-container">
-            <div>
-              <h2 className="c-modal-title">Login</h2>
-            </div>
-            <div className="mt-4">
-              <input
-                className="form-control-lg c-modal-box"
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-              <input
-                className="form-control-lg c-modal-box"
-                type="text"
-                placeholder="Password"
-                name="password"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <button
-                className="c-modal-button btn btn-primary"
-                onClick={onLogin}
-              >
-                <span className="c-modal-button-text">Login</span>
-              </button>
-              <h5 className="text-center c-modal-text">
-                Don't have an account ? <a href="/">Klik Here</a>
-              </h5>
-            </div>
+          <div>
+            <h2 className="c-modal-title">Login</h2>
+          </div>
+          <div className="mt-4">
+            <input
+              className="form-control-lg c-modal-box"
+              type="text"
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+            <input
+              className="form-control-lg c-modal-box"
+              type="text"
+              placeholder="Password"
+              name="password"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+            ></input>
+          </div>
+          <div>
+            <button
+              className="c-modal-button btn btn-primary"
+              onClick={onLogin}
+            >
+              <span className="c-modal-button-text">Login</span>
+            </button>
+            <h5 className="text-center c-modal-text">
+              Don't have an account ? <a href="/">Klik Here</a>
+            </h5>
+          </div>
+          <Toast
+            text="Wrong Detail"
+            variant="danger"
+            show={showToast}
+            setShow={setToast}
+          />
         </div>
       </Modal>
     </>

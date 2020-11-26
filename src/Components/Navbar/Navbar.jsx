@@ -11,7 +11,7 @@ function NavbarComponent() {
   const [state, dispatch] = useContext(GlobalContext);
   const { isLogin } = state;
   return (
-    <div className='c-navbar-margin'>
+    <div className="c-navbar-margin">
       <Navbar bg="light" fixed="top" className="c-navbar-shadow" expand="sm">
         <Container>
           <Link to="/">
