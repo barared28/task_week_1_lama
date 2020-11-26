@@ -1,0 +1,26 @@
+.c-shipping-box {
+  min-width: 100%;
+  margin-bottom: 20px;
+  background: rgba(97, 61, 43, 0.25);
+  border: 2px solid #613d2b;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.c-shipping-img-product {
+  height: 120px;
+}
+.c-shipping-product-name {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 19px;
+  color: #613d2b;
+}
+.c-shipping-product-desc {
+  font-size: 14px;
+  line-height: 14px;
+  color: #974a4a;
+  margin: 10px 0;
+}

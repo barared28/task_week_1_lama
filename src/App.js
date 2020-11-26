@@ -5,6 +5,7 @@ import ProductPage from "./Page/ProductPage";
 import CartPage from "./Page/CartPage";
 import Shipping from "./Page/Shipping";
 import Navbar from "./Components/Navbar/Navbar";
+import Footer from './Components/Footer';
 import PrivateRoute from './Components/PrivateRoot'
 import { GlobalContextProvider } from "./Context/GlobalContext";
 
@@ -21,6 +22,7 @@ export function App() {
             <PrivateRoute exact path="/cart/shipping" component={Shipping} />
           </Switch>
         </Container>
+        <Footer />
       </Router>
     </GlobalContextProvider>
   );
